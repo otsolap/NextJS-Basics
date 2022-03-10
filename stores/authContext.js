@@ -18,17 +18,33 @@ export const AuthContextProvider = ({ children }) => {
             console.log('Login Event triggered')
         })
 
+        netlifyIdentity.on('logout', () => {
+            setUser(null)
+            console.log('Logout event triggered')
+        })
 
         netlifyIdentity.init()
+
+        // Koska useEffectissä. Nää sammutetaan
+        // jotta funktiot ei pyöri taustalla 24/7
+        return () => {
+            netlifyIdentity.off('login')
+            netlifyIdentity.off('logout')
+        }
     }, [])
 
     const login = () => {
         netlifyIdentity.open()
     }
 
+    const logout = () => {
+        netlifyIdentity.logout()
+    }
+
     const context = {
         user,
-        login
+        login,
+        logout
     }
 
     return (
