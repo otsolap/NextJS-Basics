@@ -1,13 +1,13 @@
+import Navbar from '../components/Navbar'
 import '../styles/globals.css'
-import Layout from '../components/Layout'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Layout>
+    <div>
+      <Navbar />
       <Component {...pageProps} />
-    </Layout>
+    </div>
   )
-
 }
 
 export default MyApp
